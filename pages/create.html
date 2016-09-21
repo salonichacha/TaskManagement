@@ -1,0 +1,34 @@
+	<div class="container-fluid">
+
+				<label for="taskTitle">Title</label><br/>
+				<input type="text" class="form-control" placeholder="Enter Task Title" name="taskTitle" id="taskTitle" ng-model= "taskTitle"/><br/>
+				
+				<label for="taskDescription">Description</label><br/>
+				<textarea name="taskDescription" class="form-control" placeholder="Enter Task Description" id="taskDescription" ng-model= "taskDescription"></textarea><br/>
+				
+					
+				<label>Priority</label><br/>
+				<select id="taskPriority" name="taskPriority" ng-model="taskPriority">
+					<option>Normal</option>
+					<option>Major</option>
+					<option>Critical</option>
+				</select><br/>
+
+				<label>Status</label><br/>
+				<select name="taskStatus" id="taskStatus" ng-model="taskStatus">
+					<option>ToDo</option>
+					<option>In Progress</option>
+					<option>Done</option>
+				</select><br/>
+
+				<label>Due Date</label><br/>
+				<input type="date" name="dueDate" id="dueDate" ng-model="dueDate"/><br/>
+
+				<label>Parent</label><br/>
+				<select ng-model="taskParent">
+					<option ng-repeat="task in TaskDetails.tasks" value="{{task.taskTitle}}">{{task.taskTitle}}</option>
+				</select><br/>
+
+				<input type="submit" value="Add Task" ng-click="addDetails()"  class="btn btn-primary"><br/>
+		</div>
+	

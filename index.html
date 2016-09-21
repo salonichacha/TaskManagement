@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskApp">
+<head>
+	<title>Task Manager Application</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.5.8/angular-route.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<style type="text/css">
+
+body,pre{
+	font-family: 'Open Sans', sans-serif;
+	border: 0px;
+}
+	table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    font-weight: 400;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+#taskTable{
+	width: 60%;
+	margin-top: 20px;
+	margin-left: 10px;
+	float: left;
+}
+
+#taskInput{
+	float:left;
+	width: 30%;
+}
+
+
+#createButton{
+	float: right;
+	margin: 10px;
+}
+</style>
+<body>
+<div ng-controller = "taskController">
+	<center><h1>Task List Manager</h1></center>		
+		<div id="taskTable">
+		<a href="#/createTask" class="btn btn-default" id="createButton">Create</a>
+		
+			<table>
+				<tr>
+					<th><b>Title</b></th>
+					<th><b>Priority</b></th>
+					<th><b>Status</b></th>
+					<th><b>Due Date</b></th>
+					<th><b>Date Created</b></th>
+					<th><b>Date Modified</b></th>
+					<th><b>Parent</b></th>
+					<th><b>Operation</b></th>
+				</tr>
+				<tr ng-repeat="task in TaskDetails.tasks | orderBy: 'taskParent'" ng-include="getTemplate(task)" >
+				</tr>
+			</table>
+		
+		<script type="text/ng-template" id="display">
+		        <th><pre>{{task.taskTitle}}</pre></th>
+				<th>{{task.taskPriority}}</th>
+				<th>{{task.taskStatus}}</th>
+				<th>{{task.dueDate}}</th>
+				<th>{{task.dateCreated}}</th>
+				<th>{{task.dateModified}}</th>
+				<th>{{task.taskParent}}</th>
+		        <th>
+		            <button ng-click="editDetail(task)" class="btn btn-primary">Edit</button>
+		            <button ng-click="deleteDetail(task)" class="btn btn-primary">Delete</button>
+		        </th>
+		</script>
+
+		<script type="text/ng-template" id="edit">
+		        <td><input type="text" ng-model="TaskDetails.selected.taskTitle"/></td>
+		        <td><select ng-model="TaskDetails.selected.taskPriority">
+						<option>Normal</option>
+						<option>Major</option>
+						<option>Critical</option>
+					</select></td>
+		        <td><select ng-model="TaskDetails.selected.taskStatus">
+						<option>ToDo</option>
+						<option>In Progress</option>
+						<option>Done</option>
+					</select></td>
+		        <td><input type="date" ng-model="TaskDetails.selected.dueDate"/></td>
+		        <td>
+		            <button ng-click="saveDetail($index)">Save</button>
+		            <button ng-click="reset()">Cancel</button>
+		        </td>
+		    </script>
+		 </div>
+		 <div ng-view id="taskInput"></div>
+</div>
+</body>
+</html>
