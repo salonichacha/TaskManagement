@@ -1,6 +1,6 @@
 var app = angular.module('taskApp', ['ngRoute'])
 
-
+// Routing configuration starts here
 app.config(function($routeProvider){
         $routeProvider
             .when('/createTask', {
@@ -15,6 +15,7 @@ app.config(function($routeProvider){
             })
 })
 
+//Task Controller for homepage
 app.controller("taskController",function($scope) {
  
     $scope.TaskDetails = { 
@@ -66,6 +67,8 @@ app.controller("taskController",function($scope) {
     };
 });
 
+
+//Controller for create page
 app.controller('taskAddController',function($scope){
         $scope.addDetails = function(){
         var temp = $scope.TaskDetails.tasks.length;
